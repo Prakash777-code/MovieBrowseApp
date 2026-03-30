@@ -1,0 +1,22 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.Movieverse"
+        parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="android:windowBackground">@color/black</item>
+
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
+
+        <item name="android:windowLightStatusBar">false</item>
+
+
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorSurface">@color/black</item>
+        <item name="colorOnSurface">@color/black</item>
+
+
+    </style>
+
+</resources>
