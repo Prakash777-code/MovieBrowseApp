@@ -39,7 +39,7 @@ class MovieViewModel() : ViewModel() {
             _state.value = UiState.LOADING
             try {
                 val searchResult =
-                    repository.getMovieSearched(BuildConfig.APP_API_KEY, title)
+                    repository.getMovieSearched( title)
 
                 if (searchResult.response == "True" &&
                     !searchResult.search.isNullOrEmpty()
@@ -71,7 +71,7 @@ class MovieViewModel() : ViewModel() {
             _state.value = UiState.LOADING
             try {
                 val detailResult =
-                    repository.fetchMovieDetails(BuildConfig.APP_API_KEY, imdbID)
+                    repository.fetchMovieDetails(imdbID)
 
                 _detailData.value = detailResult
                 _state.value = UiState.SUCCESS
