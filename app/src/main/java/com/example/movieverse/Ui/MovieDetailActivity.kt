@@ -43,6 +43,9 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detailed_screen)
 
+        supportActionBar?.hide()
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+
         bindViews()
 
         vm = ViewModelProvider(this)[MovieViewModel::class.java]
@@ -83,10 +86,19 @@ class MovieDetailActivity : AppCompatActivity() {
 
         vm.state.observe(this) { state ->
             when (state) {
-                UiState.LOADING -> detailScreenProgressBar.visibility = View.VISIBLE
-                UiState.SUCCESS -> detailScreenProgressBar.visibility = View.GONE
+                UiState.LOADING -> {
+                    detailScreenProgressBar.visibility = View.VISIBLE
+                    imgPoster.visibility = View.INVISIBLE
+                }
+
+                UiState.SUCCESS -> {
+                    detailScreenProgressBar.visibility = View.GONE
+                    imgPoster.visibility = View.VISIBLE
+                }
+
                 UiState.ERROR -> {
                     detailScreenProgressBar.visibility = View.GONE
+                    imgPoster.visibility = View.VISIBLE
                     Toast.makeText(this, AppConstants.MOVIE_NOT_FOUND, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -120,7 +132,7 @@ class MovieDetailActivity : AppCompatActivity() {
         tvCountry.text = movie.Country ?: "N/A"
         tvAwards.text = movie.Awards ?: "N/A"
         tvBoxOffice.text = movie.BoxOffice ?: "N/A"
-        tvProduction.text = movie.Production ?: " "
+        tvProduction.text = movie.Production ?: "N/A"
 
 
         if(!movie.Poster.isNullOrEmpty()) {

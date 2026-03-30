@@ -11,14 +11,21 @@ import com.example.movieverse.Utils.UiState
 import kotlinx.coroutines.launch
 import com.example.movieverse.BuildConfig
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel() : ViewModel() {
 
     private val repository = MovieRepository()
 
-    val searchData = MutableLiveData<List<Search>?>()
-    val state = MutableLiveData<UiState>()
-    val errorMessage = MutableLiveData<String>()
-    val detailData = MutableLiveData<MovieDetailResponse>()
+    private val _searchData = MutableLiveData<List<Search>?>()
+    val searchData get() = _searchData
+
+    private val _state = MutableLiveData<UiState>()
+    val state get() = _state
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage get() = _errorMessage
+
+    private val _detailData = MutableLiveData<MovieDetailResponse>()
+    val detailData get() = _detailData
 
     fun recieveMovieSearched(title: String) {
 
@@ -29,7 +36,7 @@ class MovieViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            state.value = UiState.LOADING
+            _state.value = UiState.LOADING
             try {
                 val searchResult =
                     repository.getMovieSearched(BuildConfig.APP_API_KEY, title)
@@ -37,17 +44,17 @@ class MovieViewModel : ViewModel() {
                 if (searchResult.response == "True" &&
                     !searchResult.search.isNullOrEmpty()
                 ) {
-                    searchData.value = searchResult.search
-                    state.value = UiState.SUCCESS
+                    _searchData.value = searchResult.search
+                    _state.value = UiState.SUCCESS
                 } else {
-                    searchData.value = emptyList()
-                    errorMessage.value = searchResult.error ?: AppConstants.MOVIE_NOT_FOUND
-                    state.value = UiState.ERROR
+                    _searchData.value = emptyList()
+                    _errorMessage.value = searchResult.error ?: AppConstants.MOVIE_NOT_FOUND
+                    _state.value = UiState.ERROR
                 }
 
             } catch (e: Exception) {
-                errorMessage.value = AppConstants.MOVIE_NOT_FOUND
-                state.value = UiState.ERROR
+                _errorMessage.value = AppConstants.MOVIE_NOT_FOUND
+                _state.value = UiState.ERROR
             }
         }
     }
@@ -55,23 +62,23 @@ class MovieViewModel : ViewModel() {
     fun recieveMovieDetail(imdbID: String) {
 
         if (imdbID.isBlank()) {
-            errorMessage.value = AppConstants.INVALID_MOVIE_NAME
-            state.value = UiState.ERROR
+            _errorMessage.value = AppConstants.INVALID_MOVIE_NAME
+            _state.value = UiState.ERROR
             return
         }
 
         viewModelScope.launch {
-            state.value = UiState.LOADING
+            _state.value = UiState.LOADING
             try {
                 val detailResult =
                     repository.fetchMovieDetails(BuildConfig.APP_API_KEY, imdbID)
 
-                detailData.value = detailResult
-                state.value = UiState.SUCCESS
+                _detailData.value = detailResult
+                _state.value = UiState.SUCCESS
 
             } catch (e: Exception) {
-                errorMessage.value = AppConstants.DETAIL_NOT_FOUND
-                state.value = UiState.ERROR
+                _errorMessage.value = AppConstants.DETAIL_NOT_FOUND
+                _state.value = UiState.ERROR
             }
         }
     }

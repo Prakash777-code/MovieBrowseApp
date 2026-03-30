@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -12,247 +11,272 @@
         android:padding="12dp">
 
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
+            android:layout_marginBottom="14dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#121212"
+            app:strokeColor="#2A2A2A"
+            app:strokeWidth="1dp"
+            app:rippleColor="#33FFFFFF">
 
-            <ImageView
-                android:id="@+id/imgPoster"
-                android:background="@color/black"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:scaleType="centerCrop" />
+                android:layout_height="400dp">
 
-           <ProgressBar
-               android:id="@+id/detailScreenProgressBar"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:visibility="gone"/>
-        </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/imgPoster"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <ProgressBar
+                    android:id="@+id/detailScreenProgressBar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
+            android:layout_marginBottom="14dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#121212"
+            app:strokeColor="#2A2A2A"
+            app:strokeWidth="1dp"
+            app:rippleColor="#33FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/black"
-                android:padding="16dp">
+                android:padding="18dp">
 
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/tvGenre"
                     android:layout_width="match_parent"
-                    android:text="GENRE :"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="4dp" />
+                    android:textSize="13sp"
+                    android:textColor="#BBBBBB"
+                    android:layout_marginTop="6dp" />
 
                 <TextView
                     android:id="@+id/tvYear"
                     android:layout_width="match_parent"
-                    android:textColor="@color/white"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp" />
 
                 <TextView
                     android:id="@+id/tvRuntime"
                     android:layout_width="match_parent"
-                    android:textColor="@color/white"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/tvReleased"
-                    android:textColor="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            android:background="@color/black"
-            app:cardElevation="6dp">
+            android:layout_marginBottom="14dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#121212"
+            app:strokeColor="#2A2A2A"
+            app:strokeWidth="1dp"
+            app:rippleColor="#33FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/black"
-                android:padding="16dp">
+                android:padding="18dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ratings"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/tvImdbRating"
                     android:layout_width="match_parent"
-                    android:textColor="@color/white"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+                    android:textColor="#DDDDDD"
+                    android:layout_marginTop="10dp" />
 
                 <TextView
                     android:id="@+id/tvImdbVotes"
-                    android:textColor="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="#DDDDDD" />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
+            android:layout_marginBottom="14dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#121212"
+            app:strokeColor="#2A2A2A"
+            app:strokeWidth="1dp"
+            app:rippleColor="#33FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/black"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="18dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Plot"
-                    android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/tvPlot"
-                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+                    android:textColor="#DDDDDD"
+                    android:layout_marginTop="10dp" />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
+            android:layout_marginBottom="14dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#121212"
+            app:strokeColor="#2A2A2A"
+            app:strokeWidth="1dp"
+            app:rippleColor="#33FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/black"
                 android:orientation="vertical"
-                android:padding="16dp">
-
+                android:padding="18dp">
 
                 <TextView
                     android:id="@+id/tvDirector"
-                    android:textColor="@color/white"
-
-                    android:textStyle="bold"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvWriter"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvActors"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
+            app:cardCornerRadius="18dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#121212"
+            app:strokeColor="#2A2A2A"
+            app:strokeWidth="1dp"
+            app:rippleColor="#33FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/black"
-                android:padding="16dp">
+                android:padding="18dp">
 
                 <TextView
                     android:id="@+id/tvLanguage"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvCountry"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvAwards"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvBoxOffice"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvProduction"
-                    android:textColor="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 </ScrollView>
