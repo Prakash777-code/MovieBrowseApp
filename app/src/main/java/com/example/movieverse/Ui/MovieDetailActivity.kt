@@ -104,6 +104,12 @@ class MovieDetailActivity : AppCompatActivity() {
             }
         }
 
+        vm.errorMessage.observe(this){msg ->
+            if(!msg.isNullOrBlank()){
+                Toast.makeText(this,msg, Toast.LENGTH_SHORT).show()
+            }
+        }
+
         vm.detailData.observe(this) { movie ->
             movie?.let { bindData(it) }
         }

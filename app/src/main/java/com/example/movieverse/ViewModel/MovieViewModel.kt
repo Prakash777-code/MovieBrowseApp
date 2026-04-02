@@ -12,6 +12,7 @@ import com.example.movieverse.Utils.UiState
 import kotlinx.coroutines.launch
 import com.example.movieverse.BuildConfig
 import com.example.movieverse.Models.MovieSearchResponse
+import okio.IOException
 
 class MovieViewModel() : ViewModel() {
 
@@ -78,7 +79,11 @@ class MovieViewModel() : ViewModel() {
                 _detailData.value = detailResult
                 _state.value = UiState.SUCCESS
 
-            } catch (e: Exception) {
+            }catch (e: IOException){
+                _errorMessage.value = AppConstants.NETWORK_ISSUE
+                _state.value = UiState.ERROR
+            }
+            catch (e: Exception) {
                 _errorMessage.value = AppConstants.DETAIL_NOT_FOUND
                 _state.value = UiState.ERROR
             }

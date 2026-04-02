@@ -61,8 +61,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         vm.state.observe(this) { state ->
-            progressBar.visibility =
-                if (state == UiState.LOADING) View.VISIBLE else View.GONE
+
+            when(state){
+                UiState.LOADING -> progressBar.visibility = View.VISIBLE
+                UiState.SUCCESS -> progressBar.visibility = View.GONE
+                UiState.ERROR -> progressBar.visibility = View.GONE
+            }
         }
 
         vm.errorMessage.observe(this) { msg ->
@@ -80,6 +84,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        vm.recieveMovieSearched(AppConstants.INITIAL_SEARCH)
+        if(savedInstanceState == null){
+            vm.recieveMovieSearched(AppConstants.INITIAL_SEARCH)
+            movieInput.setText(AppConstants.INITIAL_SEARCH)
+        }
     }
 }

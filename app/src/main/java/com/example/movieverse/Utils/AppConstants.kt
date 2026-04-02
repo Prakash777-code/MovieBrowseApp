@@ -10,6 +10,7 @@ object AppConstants {
     const val MOVIE_NOT_FOUND = "Movie not found"
     const val IMDBID = "imdbID"
     const val POSTER_NOT_AVAILABLE = "Poster not available"
+    const val NETWORK_ISSUE = "No network"
     const val MAGIC_SCREEN = 2500
     const val INITIAL_SEARCH = "Batman"
 
