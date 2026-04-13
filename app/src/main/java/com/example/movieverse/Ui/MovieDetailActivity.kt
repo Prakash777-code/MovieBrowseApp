@@ -9,10 +9,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.savedstate.serialization.saved
+import com.example.movieverse.Ui.DetailUiState
 import com.example.movieverse.Models.MovieDetailResponse
 import com.example.movieverse.R
 import com.example.movieverse.Utils.AppConstants
-import com.example.movieverse.Utils.UiState
 import com.example.movieverse.ViewModel.MovieViewModel
 import com.squareup.picasso.Picasso
 
@@ -59,6 +60,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         observeViewModel()
         vm.recieveMovieDetail(imdbID)
+
     }
 
     private fun bindViews() {
@@ -84,35 +86,30 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
 
-        vm.state.observe(this) { state ->
-            when (state) {
-                UiState.LOADING -> {
+        vm.detailUiState.observe(this) { state ->
+
+            when(state){
+
+                is DetailUiState.Loading ->{
                     detailScreenProgressBar.visibility = View.VISIBLE
                     imgPoster.visibility = View.INVISIBLE
                 }
 
-                UiState.SUCCESS -> {
+                is DetailUiState.DetailSuccess ->{
                     detailScreenProgressBar.visibility = View.GONE
                     imgPoster.visibility = View.VISIBLE
+                    bindData(state.data)
                 }
 
-                UiState.ERROR -> {
+                is DetailUiState.Error ->{
                     detailScreenProgressBar.visibility = View.GONE
                     imgPoster.visibility = View.VISIBLE
-                    Toast.makeText(this, AppConstants.MOVIE_NOT_FOUND, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-        vm.errorMessage.observe(this){msg ->
-            if(!msg.isNullOrBlank()){
-                Toast.makeText(this,msg, Toast.LENGTH_SHORT).show()
-            }
-        }
 
-        vm.detailData.observe(this) { movie ->
-            movie?.let { bindData(it) }
-        }
     }
 
     private fun bindData(movie: MovieDetailResponse) {

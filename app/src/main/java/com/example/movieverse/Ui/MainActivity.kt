@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movieverse.Adapter.MovieAdapter
 import com.example.movieverse.R
 import com.example.movieverse.Utils.AppConstants
-import com.example.movieverse.Utils.UiState
 import com.example.movieverse.ViewModel.MovieViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -55,25 +54,28 @@ class MainActivity : AppCompatActivity() {
         }
         recyclerView.adapter = adapter
 
-
-        vm.searchData.observe(this) { movieList ->
-            adapter.updateList(movieList)
-        }
-
-        vm.state.observe(this) { state ->
+        vm.state.observe(this) {state ->
 
             when(state){
-                UiState.LOADING -> progressBar.visibility = View.VISIBLE
-                UiState.SUCCESS -> progressBar.visibility = View.GONE
-                UiState.ERROR -> progressBar.visibility = View.GONE
+
+                is SearchUiState.Loading ->{
+                    progressBar.visibility = View.VISIBLE
+                }
+
+                is SearchUiState.SearchSuccess ->{
+                    progressBar.visibility = View.GONE
+                    adapter.updateList(state.data)
+                }
+
+                is SearchUiState.Error ->{
+                    progressBar.visibility = View.GONE
+                    Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
+                }
+
             }
         }
 
-        vm.errorMessage.observe(this) { msg ->
-            if (!msg.isNullOrBlank()) {
-                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-            }
-        }
+
 
         btnSearch.setOnClickListener {
             val query = movieInput.text.toString().trim()

@@ -4,60 +4,51 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieverse.Models.MovieDetailResponse
 import com.example.movieverse.Repository.MovieRepository
-import com.example.movieverse.Models.Search
 import com.example.movieverse.Utils.AppConstants
-import com.example.movieverse.Utils.UiState
 import kotlinx.coroutines.launch
-import com.example.movieverse.BuildConfig
-import com.example.movieverse.Models.MovieSearchResponse
+import com.example.movieverse.Ui.DetailUiState
+import com.example.movieverse.Ui.SearchUiState
 import okio.IOException
 
 class MovieViewModel() : ViewModel() {
 
     private val repository = MovieRepository()
+    private val _state = MutableLiveData<SearchUiState>()
+    val state: LiveData<SearchUiState> = _state
 
-    private val _searchData = MutableLiveData<List<Search>?>()
-    val searchData: LiveData<List<Search>?> = _searchData
+    private val _detailState = MutableLiveData<DetailUiState>()
+    val detailUiState : LiveData<DetailUiState> = _detailState
 
-    private val _state = MutableLiveData<UiState>()
-    val state : LiveData<UiState> = _state
-
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage : LiveData<String> = _errorMessage
-
-    private val _detailData = MutableLiveData<MovieDetailResponse>()
-    val detailData : LiveData<MovieDetailResponse> = _detailData
+    private var currentId: String? = null
 
     fun recieveMovieSearched(title: String) {
 
         if (title.isBlank()) {
-            _errorMessage.value = AppConstants.EMPTY_INPUT
-            _state.value = UiState.ERROR
+            _state.value = SearchUiState.Error(AppConstants.EMPTY_INPUT)
             return
         }
 
         viewModelScope.launch {
-            _state.value = UiState.LOADING
-            try {
-                val searchResult =
-                    repository.getMovieSearched( title)
 
-                if (searchResult.response == "True" &&
-                    !searchResult.search.isNullOrEmpty()
-                ) {
-                    _searchData.value = searchResult.search
-                    _state.value = UiState.SUCCESS
+            _state.value = SearchUiState.Loading
+
+            try {
+                val searchResult = repository.getMovieSearched(title)
+
+                if (searchResult.response == "True" && !searchResult.search.isNullOrEmpty()) {
+                    _state.value = SearchUiState.SearchSuccess(searchResult.search)
                 } else {
-                    _searchData.value = emptyList()
-                    _errorMessage.value = searchResult.error ?: AppConstants.MOVIE_NOT_FOUND
-                    _state.value = UiState.ERROR
+                    _state.value = SearchUiState.Error(searchResult.error?: AppConstants.MOVIE_NOT_FOUND)
                 }
 
             } catch (e: Exception) {
-                _errorMessage.value = AppConstants.MOVIE_NOT_FOUND
-                _state.value = UiState.ERROR
+
+                _state.value = SearchUiState.Error(AppConstants.MOVIE_NOT_FOUND)
+            }
+
+            catch (e: Exception) {
+                _state.value = SearchUiState.Error(AppConstants.NETWORK_ISSUE)
             }
         }
     }
@@ -65,27 +56,28 @@ class MovieViewModel() : ViewModel() {
     fun recieveMovieDetail(imdbID: String) {
 
         if (imdbID.isBlank()) {
-            _errorMessage.value = AppConstants.INVALID_MOVIE_NAME
-            _state.value = UiState.ERROR
+            _detailState.value = DetailUiState.Error(AppConstants.EMPTY_INPUT)
             return
         }
 
-        viewModelScope.launch {
-            _state.value = UiState.LOADING
-            try {
-                val detailResult =
-                    repository.fetchMovieDetails(imdbID)
+        if (imdbID == currentId) return
+        currentId = imdbID
 
-                _detailData.value = detailResult
-                _state.value = UiState.SUCCESS
+        viewModelScope.launch {
+
+            _detailState.value = DetailUiState.Loading
+
+            try {
+
+                val detailResult = repository.fetchMovieDetails(imdbID)
+                _detailState.value = DetailUiState.DetailSuccess(detailResult)
 
             }catch (e: IOException){
-                _errorMessage.value = AppConstants.NETWORK_ISSUE
-                _state.value = UiState.ERROR
+                _detailState.value = DetailUiState.Error(AppConstants.NETWORK_ISSUE)
             }
+
             catch (e: Exception) {
-                _errorMessage.value = AppConstants.DETAIL_NOT_FOUND
-                _state.value = UiState.ERROR
+                _detailState.value = DetailUiState.Error(AppConstants.NETWORK_ISSUE)
             }
         }
     }
