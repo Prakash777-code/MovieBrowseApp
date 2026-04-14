@@ -74,9 +74,6 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-
-
-
         btnSearch.setOnClickListener {
             val query = movieInput.text.toString().trim()
             if (query.isNotEmpty()) {

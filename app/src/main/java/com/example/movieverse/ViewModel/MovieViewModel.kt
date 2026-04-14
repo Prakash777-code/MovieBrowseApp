@@ -42,13 +42,12 @@ class MovieViewModel() : ViewModel() {
                     _state.value = SearchUiState.Error(searchResult.error?: AppConstants.MOVIE_NOT_FOUND)
                 }
 
-            } catch (e: Exception) {
+            } catch (e: IOException){
+                _state.value = SearchUiState.Error(AppConstants.NETWORK_ISSUE)
+            }
+            catch (e: Exception) {
 
                 _state.value = SearchUiState.Error(AppConstants.MOVIE_NOT_FOUND)
-            }
-
-            catch (e: Exception) {
-                _state.value = SearchUiState.Error(AppConstants.NETWORK_ISSUE)
             }
         }
     }
