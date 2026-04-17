@@ -1,7 +1,5 @@
 package com.example.movieverse.Networks
 
-import com.example.movieverse.Networks.MovieDetailApi
-import com.example.movieverse.Networks.MovieSearchApi
 import com.example.movieverse.Utils.AppConstants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

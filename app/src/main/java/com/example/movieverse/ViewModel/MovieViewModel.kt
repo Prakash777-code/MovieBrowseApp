@@ -39,7 +39,7 @@ class MovieViewModel() : ViewModel() {
                 if (searchResult.response == "True" && !searchResult.search.isNullOrEmpty()) {
                     _state.value = SearchUiState.SearchSuccess(searchResult.search)
                 } else {
-                    _state.value = SearchUiState.Error(searchResult.error?: AppConstants.MOVIE_NOT_FOUND)
+                    _state.value = SearchUiState.Error(searchResult.error?: AppConstants.UNEXPECTED_ERROR)
                 }
 
             } catch (e: IOException){
@@ -47,7 +47,7 @@ class MovieViewModel() : ViewModel() {
             }
             catch (e: Exception) {
 
-                _state.value = SearchUiState.Error(AppConstants.MOVIE_NOT_FOUND)
+                _state.value = SearchUiState.Error(AppConstants.UNEXPECTED_ERROR)
             }
         }
     }

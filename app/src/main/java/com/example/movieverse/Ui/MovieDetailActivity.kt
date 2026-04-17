@@ -1,6 +1,5 @@
 package com.example.movieverse.Ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -9,8 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.savedstate.serialization.saved
-import com.example.movieverse.Ui.DetailUiState
 import com.example.movieverse.Models.MovieDetailResponse
 import com.example.movieverse.R
 import com.example.movieverse.Utils.AppConstants

@@ -1,7 +1,6 @@
 package com.example.movieverse.Ui
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -74,6 +73,7 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+
         btnSearch.setOnClickListener {
             val query = movieInput.text.toString().trim()
             if (query.isNotEmpty()) {
