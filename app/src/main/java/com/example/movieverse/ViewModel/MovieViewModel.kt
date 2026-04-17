@@ -76,7 +76,7 @@ class MovieViewModel() : ViewModel() {
             }
 
             catch (e: Exception) {
-                _detailState.value = DetailUiState.Error(AppConstants.NETWORK_ISSUE)
+                _detailState.value = DetailUiState.Error(AppConstants.UNEXPECTED_ERROR)
             }
         }
     }
